@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<form action="" method="post">
+  {%csrf_token%}
+  <div class="container">
+    <h1>trainee</h1>
+    <hr>
+    <label for="username"><b>username</b></label>
+    <input type="text" placeholder="Enter Password" name="username" id="username" required>
+
+     <label for="sex">Choose a sex:</label>
+          <select name="sex" id="sex" >
+            <option value="female">female</option>
+            <option value="male">male</option>
+          </select>
+
+    <label for="national"><b>national number</b></label>
+    <input type="number" placeholder="national number" name="national" id="national" required>
+    <hr>
+
+    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+    <button type="submit" class="registerbtn">Insert</button>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+{{request.session.username}}
+<style>
+    .customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.customers tr:nth-child(even){background-color: #f2f2f2;}
+
+.customers tr:hover {background-color: #ddd;}
+
+.customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+ <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+<table class="customers"style="border:solid">
+    <tr>
+        <th>name</th>
+        <th>national_num</th>
+        <th>sex</th>
+        <th>link </th>
+        <th>courcss</th>
+    </tr>
+    {% for trainee in the_trainees %}
+    <tr>
+        <td>{{trainee.name}}</td>
+        <td>{{trainee.national_num}}</td>
+        <td>{{trainee.sex}}</td>
+        <td>
+        {% for course in the_course %}
+
+        {% if course.slug.name == trainee.name %}
+            {{course.name}}
+        {% endif %}
+        {% endfor %}
+        </td>
+        <td>
+            <a href="{% url 'trainee:insert' %}"> insert</a>
+            <a href="{% url 'trainee:update' trainee.id %}">update</a>
+            <a href="{% url 'trainee:delete' trainee.id %}">delete</a>
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
