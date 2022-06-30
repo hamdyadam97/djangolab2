@@ -31,27 +31,26 @@
     <tr>
         <th>name</th>
         <th>national_num</th>
-        <th>sex</th>
-        <th>link </th>
-        <th>courcss</th>
+        <th>name</th>
+        <th>grade </th>
+        <th>sex </th>
+        <th>link</th>
     </tr>
-    {% for trainee in the_trainees %}
+    {% for  course in the_course  %}
     <tr>
-        <td>{{trainee.name}}</td>
-        <td>{{trainee.national_num}}</td>
-        <td>{{trainee.sex}}</td>
+        <td>{{course.name}}</td>
+        <td>{{course.slug.national_num}}</td>
+        <td>{{course.slug}}</td>
         <td>
-        {% for course in the_course %}
-
-        {% if course.slug.name == trainee.name %}
-            {{course.name}}
-        {% endif %}
-        {% endfor %}
+        {{course.grade}}
         </td>
+        <td>{{course.slug.sex}}</td>
         <td>
             <a href="{% url 'trainee:insert' %}"> insert</a>
-            <a href="{% url 'trainee:update' trainee.id %}">update</a>
-            <a href="{% url 'trainee:delete' trainee.id %}">delete</a>
+            <a href="{% url 'trainee:update' course.slug.id %}">update</a>
+            <a href="{% url  'trainee:updateform' course.slug.id}">updateform</a>
+            <a href="{% url 'trainee:delete' course.slug.id %}">delete</a>
+            <a href="{% url 'trainee:classdelete' course.slug.id%}">classdelete</a>
         </td>
 
     </tr>
