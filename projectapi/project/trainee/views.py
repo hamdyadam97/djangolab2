@@ -1,8 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes,authentication_classes
-from rest_framework import authtoken,authentication,permissions
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions, authentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.status import *
-from .models import Trainee
 from .serializers import *
 
 @api_view(['POST'])
@@ -59,9 +60,13 @@ def update(req):
     else:
         return Response({'error': 'invalid data'}, status=HTTP_400_BAD_REQUEST)
 
+
+
 @api_view(['DELETE'])
-@permission_classes([permissions.IsAdminUser])
-@authentication_classes ([authentication.TokenAuthentication])
+# @permission_classes([permissions.IsAdminUser])
+@authentication_classes([authentication.TokenAuthentication])
 def delete(req,id):
-    c=Trainee.objects.filter(id=id).delete()
+    c = Trainee.objects.filter(id=id).delete()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     return Response({'message':'deleted'}, status=HTTP_200_OK)
